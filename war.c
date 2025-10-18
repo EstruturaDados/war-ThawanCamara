@@ -29,29 +29,53 @@
 // Funções de lógica principal do jogo:
 // Função utilitária:
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "war.h"
+
+char	*read_input(char *prompt) {	
+	char	input[256];
+
+	printf("%s\n", prompt);
+	if (fgets(input, sizeof(input), stdin)) {
+		input[strcspn(input, "\n")] = 0;
+	}
+	else {
+		fprintf(stderr, "\033[38;5;1mErro:\033[0m Falha na captura da entrada.");
+		return (NULL);
+	}
+	return (strdup(input));
+}
+
 // --- Função Principal (main) ---
 // Função principal que orquestra o fluxo do jogo, chamando as outras funções em ordem.
 int main() {
-    // 1. Configuração Inicial (Setup):
-    // - Define o locale para português.
-    // - Inicializa a semente para geração de números aleatórios com base no tempo atual.
-    // - Aloca a memória para o mapa do mundo e verifica se a alocação foi bem-sucedida.
-    // - Preenche os territórios com seus dados iniciais (tropas, donos, etc.).
-    // - Define a cor do jogador e sorteia sua missão secreta.
+	char	*input;
 
-    // 2. Laço Principal do Jogo (Game Loop):
-    // - Roda em um loop 'do-while' que continua até o jogador sair (opção 0) ou vencer.
-    // - A cada iteração, exibe o mapa, a missão e o menu de ações.
-    // - Lê a escolha do jogador e usa um 'switch' para chamar a função apropriada:
-    //   - Opção 1: Inicia a fase de ataque.
-    //   - Opção 2: Verifica se a condição de vitória foi alcançada e informa o jogador.
-    //   - Opção 0: Encerra o jogo.
-    // - Pausa a execução para que o jogador possa ler os resultados antes da próxima rodada.
+	input = read_input("Teste de entrada");
+	printf("%s\n", input);
+	free(input);
+	// 1. Configuração Inicial (Setup):
+	// - Define o locale para português.
+	// - Inicializa a semente para geração de números aleatórios com base no tempo atual.
+	// - Aloca a memória para o mapa do mundo e verifica se a alocação foi bem-sucedida.
+	// - Preenche os territórios com seus dados iniciais (tropas, donos, etc.).
+	// - Define a cor do jogador e sorteia sua missão secreta.
 
-    // 3. Limpeza:
-    // - Ao final do jogo, libera a memória alocada para o mapa para evitar vazamentos de memória.
+	// 2. Laço Principal do Jogo (Game Loop):
+	// - Roda em um loop 'do-while' que continua até o jogador sair (opção 0) ou vencer.
+	// - A cada iteração, exibe o mapa, a missão e o menu de ações.
+	// - Lê a escolha do jogador e usa um 'switch' para chamar a função apropriada:
+	//   - Opção 1: Inicia a fase de ataque.
+	//   - Opção 2: Verifica se a condição de vitória foi alcançada e informa o jogador.
+	//   - Opção 0: Encerra o jogo.
+	// - Pausa a execução para que o jogador possa ler os resultados antes da próxima rodada.
 
-    return 0;
+	// 3. Limpeza:
+	// - Ao final do jogo, libera a memória alocada para o mapa para evitar vazamentos de memória.
+
+	return 0;
 }
 
 // --- Implementação das Funções ---
